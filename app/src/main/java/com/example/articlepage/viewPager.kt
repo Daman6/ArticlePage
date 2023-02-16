@@ -1,18 +1,25 @@
 package com.example.articlepage
 
 import android.icu.text.ListFormatter.Width
+import android.util.Log
 import android.view.RoundedCorner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -23,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import com.example.articlepage.ui.theme.Shapes
 import com.example.myapplication.utils.Utilities
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -42,11 +50,19 @@ fun Sample() {
             .padding(bottom = 15.dp)
     ) {
         val pagerState = rememberPagerState()
+        LaunchedEffect(pagerState) {
+            snapshotFlow { pagerState.currentPage }.collect { page ->
+                val isScroll = pagerState.isScrollInProgress
+                Log.e("dbjbd",page.toString() +"scrolling $isScroll" )
+            }
+        }
+
         HorizontalPager(
             count = 7,
             state = pagerState,
             modifier = Modifier
                 .fillMaxWidth(),
+
         ) {
             Full1()
         }
@@ -55,6 +71,10 @@ fun Sample() {
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
             activeColor = Utilities.activeColor,
+            indicatorShape = CircleShape,
+            indicatorWidth = 18.dp,
+            indicatorHeight = 5.dp,
+            spacing = 6.dp,
             inactiveColor = Utilities.inactiveColor
         )
 
