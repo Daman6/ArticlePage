@@ -3,8 +3,12 @@ package com.example.articlepage
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -26,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import com.example.articlepage.ui.theme.ArticlePageTheme
 import com.google.accompanist.web.*
 
@@ -150,12 +155,3 @@ fun getListOfWebviews(): MutableList<WebviewPojo> {
 }
 
 class WebviewPojo()
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ArticlePageTheme {
-
-    }
-}
